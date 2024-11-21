@@ -1,7 +1,13 @@
 <template>
-  <h1>我是App</h1>
+  <h2>wos</h2>
+  <el-pagination
+    :page-size="20"
+    :pager-count="11"
+    layout="prev, pager, next"
+    :total="1000"
+  />
 </template>
 
-<script steup lang="ts"></script>
+<script lang="ts" setup></script>
 
 <style scoped lang="scss"></style>

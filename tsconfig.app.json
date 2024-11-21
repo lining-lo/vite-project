@@ -28,5 +28,6 @@
     },
     "allowSyntheticDefaultImports": true // 允许默认导入
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "types": ["element-plus/global"], // 全组件类型声明
 }
