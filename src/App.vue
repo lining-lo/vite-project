@@ -2,8 +2,6 @@
   <h1>我是App</h1>
 </template>
 
-<script>
-export default {};
-</script>
+<script steup lang="ts"></script>
 
-<style></style>
+<style scoped lang="scss"></style>
