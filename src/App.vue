@@ -1,10 +1,14 @@
 <template>
-  <h2>wos</h2>
-  <svg style="width: 30px; height: 30px">
-    <use xlink:href="#icon-home"></use>
-  </svg>
+  <div class="aa">
+    <h3>c阿是</h3>
+  </div>
 </template>
 
-<script lang="ts" setup></script>
-
-<style scoped lang="scss"></style>
+<script setup lang="ts"></script>
+<style lang="scss" scoped>
+.aa {
+  h3 {
+    color: $color;
+  }
+}
+</style>
