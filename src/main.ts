@@ -6,11 +6,13 @@ import App from '@/App.vue'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 //@ts-expect-error忽略当前文件ts类型的检测否则有红色提示
 import 'virtual:svg-icons-register'
+import gloablComponent from '@/components/index'
 
 const app = createApp(App)
 
 app.use(ElementPlus, {
   locale: zhCn, // 国际化
 })
+app.use(gloablComponent)
 
 app.mount('#app')
