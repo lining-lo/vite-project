@@ -8,21 +8,12 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import 'virtual:svg-icons-register'
 import gloablComponent from '@/components/index'
 import '@/styles/index.scss'
-import axios from 'axios'
-axios({
-  url: '/api/user/login',
-  method: 'post',
-  data: {
-    username: 'admin',
-    password: '111111',
-  },
-})
-
+import router from './router'
 const app = createApp(App)
 
 app.use(ElementPlus, {
   locale: zhCn, // 国际化
 })
 app.use(gloablComponent)
-
+app.use(router)
 app.mount('#app')
