@@ -10,6 +10,9 @@ dependencies:
   element-plus:
     specifier: 2.3.3
     version: 2.3.3(vue@3.5.12)
+  pinia:
+    specifier: 2.0.34
+    version: 2.0.34(typescript@5.6.2)(vue@3.5.12)
   sass:
     specifier: 1.61.0
     version: 1.61.0
@@ -4597,6 +4600,24 @@ packages:
   /picomatch@2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
     engines: {node: '>=8.6'}
+
+  /pinia@2.0.34(typescript@5.6.2)(vue@3.5.12):
+    resolution: {integrity: sha512-cgOoGUiyqX0SSgX8XelK9+Ri4XA2/YyNtgjogwfzIx1g7iZTaZPxm7/bZYMCLU2qHRiHhxG7SuQO0eBacFNc2Q==}
+    peerDependencies:
+      '@vue/composition-api': ^1.4.0
+      typescript: '>=4.4.4'
+      vue: ^2.6.14 || ^3.2.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      '@vue/devtools-api': 6.6.4
+      typescript: 5.6.2
+      vue: 3.5.12(typescript@5.6.2)
+      vue-demi: 0.14.10(vue@3.5.12)
+    dev: false
 
   /posix-character-classes@0.1.1:
     resolution: {integrity: sha512-xTgYBc3fuo7Yt7JbiuFxSYGToMoz8fLoE6TC9Wx1P/u+LfeThMOAqmuyECnlBaaJb+u1m9hHiXUEtwW4OzfUJg==}
