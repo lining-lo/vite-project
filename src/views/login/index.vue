@@ -45,6 +45,8 @@ import { ElNotification } from 'element-plus'
 import useUserStore from '@/store/modules/user'
 //引入用户相关的小仓库
 let useStore = useUserStore()
+//引入获取当前时间的函数
+import { getTime } from '@/utils/time'
 //获取路由器
 let $router = useRouter()
 //定义变量控制按钮加载效果
@@ -67,6 +69,7 @@ const login = async () => {
     ElNotification({
       type: 'success',
       message: '登录成功！',
+      title: `HI,${getTime()}好`,
     })
     //登录成功加载效果消失
     loading.value = false
