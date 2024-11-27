@@ -12,9 +12,14 @@ export interface ResponseData {
   ok: boolean
 }
 
+interface dataType {
+  token?: string
+  message?: string
+}
 //定义登录接口返回数据类型
-export interface loginResponseData extends ResponseData {
-  data: string
+export interface loginResponseData {
+  code: number
+  data: dataType
 }
 
 //定义获取用户信息返回数据类型
