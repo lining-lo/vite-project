@@ -3,16 +3,22 @@
     <el-row>
       <el-col :span="12" :xs="0"></el-col>
       <el-col :span="12" :xs="24">
-        <el-form class="login_form">
+        <!-- 登录的表单 -->
+        <el-form
+          class="login_form"
+          :model="loginForm"
+          :rules="rules"
+          ref="loginForms"
+        >
           <h1>Hello</h1>
           <h2>欢迎来到硅谷甄选</h2>
-          <el-form-item>
+          <el-form-item prop="username">
             <el-input
               :prefix-icon="User"
               v-model="loginForm.username"
             ></el-input>
           </el-form-item>
-          <el-form-item>
+          <el-form-item prop="password">
             <el-input
               type="password"
               :prefix-icon="Lock"
@@ -47,6 +53,8 @@ import useUserStore from '@/store/modules/user'
 let useStore = useUserStore()
 //引入获取当前时间的函数
 import { getTime } from '@/utils/time'
+//获取el-form表单
+let loginForms = ref()
 //获取路由器
 let $router = useRouter()
 //定义变量控制按钮加载效果
@@ -58,6 +66,8 @@ let loginForm = reactive({
 })
 //登录按钮的回调
 const login = async () => {
+  //保证全部表单校验通过再发请求
+  await loginForms.value.validate()
   //加载效果：开始加载
   loading.value = true
   try {
@@ -82,6 +92,27 @@ const login = async () => {
       message: (error as Error).message,
     })
   }
+}
+//定义表单校验需要的配置对象
+const rules = {
+  username: [
+    {
+      required: true,
+      min: 5,
+      max: 10,
+      message: '账号长度必须6-10位',
+      trigger: 'change',
+    },
+  ],
+  password: [
+    {
+      required: true,
+      min: 6,
+      max: 15,
+      message: '密码长度必须6-15位',
+      trigger: 'change',
+    },
+  ],
 }
 </script>
 <style lang="scss" scoped>
