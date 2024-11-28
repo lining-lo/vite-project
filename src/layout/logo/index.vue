@@ -11,7 +11,7 @@ import setting from '@/setting'
 <style lang="scss" scoped>
 .logo {
   width: 100%;
-  height: $base-menu-height;
+  height: $base-menu-logo-height;
   color: white;
   display: flex;
   align-items: center;
