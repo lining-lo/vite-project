@@ -8,17 +8,8 @@
       <el-scrollbar class="scrollbar">
         <!-- 菜单组件 -->
         <el-menu background-color="#001529" text-color="white">
-          <el-menu-item index="1">首页</el-menu-item>
-          <el-menu-item index="2">数据大屏</el-menu-item>
-          <!-- 折叠菜单 -->
-          <el-sub-menu index="3">
-            <template #title>
-              <span>权限管理</span>
-            </template>
-            <el-menu-item index="3-1">用户管理</el-menu-item>
-            <el-menu-item index="3-2">角色管理</el-menu-item>
-            <el-menu-item index="3-3">菜单管理</el-menu-item>
-          </el-sub-menu>
+          <!-- 根据路由动态生成菜单 -->
+          <Menu :menuList="useStore.menuRoutes"></Menu>
         </el-menu>
       </el-scrollbar>
     </div>
@@ -32,7 +23,14 @@
 </template>
 
 <script setup lang="ts">
+//引入左侧菜单logo组件
 import Logo from './logo/index.vue'
+//引入左侧菜单组件
+import Menu from './menu/index.vue'
+
+//获取菜单相关的小仓库
+import useUserStore from '@/store/modules/user'
+let useStore = useUserStore()
 </script>
 
 <style lang="scss" scoped>
@@ -47,6 +45,9 @@ import Logo from './logo/index.vue'
       width: 100%;
       height: calc(100vh - $base-menu-logo-height);
       color: white;
+      .el-menu {
+        border-right: none;
+      }
     }
   }
   .layout_tabbar {
