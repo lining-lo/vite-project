@@ -2,7 +2,11 @@
   <template v-for="item in menuList" :key="item.path">
     <!-- 没有子路由 -->
     <template v-if="!item.children">
-      <el-menu-item v-if="!item.meta.hidden" :index="item.path">
+      <el-menu-item
+        v-if="!item.meta.hidden"
+        :index="item.path"
+        @click="goRoute"
+      >
         <template #title>
           <el-icon>
             <component :is="item.meta.icon"></component>
@@ -16,6 +20,7 @@
       <el-menu-item
         v-if="!item.children[0].meta.hidden"
         :index="item.children[0].path"
+        @click="goRoute"
       >
         <template #title>
           <el-icon>
@@ -42,6 +47,15 @@
 </template>
 
 <script setup lang="ts" name="Menu">
+import { useRouter } from 'vue-router'
 //获取父组件传递过来的全部路由数组
 defineProps(['menuList'])
+
+//获取路由器对象
+let $router = useRouter()
+//点击菜单的回调
+const goRoute = (vc: any) => {
+  //路由跳转
+  $router.push(vc.index)
+}
 </script>

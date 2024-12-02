@@ -17,7 +17,7 @@
     <div class="layout_tabbar">456</div>
     <!-- 内容展示区域 -->
     <div class="layout_main">
-      <p style="height: 1000000px; background-color: red">789</p>
+      <Main></Main>
     </div>
   </div>
 </template>
@@ -27,6 +27,8 @@
 import Logo from './logo/index.vue'
 //引入左侧菜单组件
 import Menu from './menu/index.vue'
+//右侧内容展示区域
+import Main from './main/index.vue'
 
 //获取菜单相关的小仓库
 import useUserStore from '@/store/modules/user'
