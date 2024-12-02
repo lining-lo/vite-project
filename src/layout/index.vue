@@ -7,14 +7,21 @@
       <!-- 滚动组件 -->
       <el-scrollbar class="scrollbar">
         <!-- 菜单组件 -->
-        <el-menu background-color="#001529" text-color="white">
+        <el-menu
+          :default-active="$route.path"
+          background-color="#001529"
+          text-color="white"
+        >
           <!-- 根据路由动态生成菜单 -->
           <Menu :menuList="useStore.menuRoutes"></Menu>
         </el-menu>
       </el-scrollbar>
     </div>
     <!-- 顶部导航 -->
-    <div class="layout_tabbar">456</div>
+    <div class="layout_tabbar">
+      <!-- layout组件的顶部导航tabbar -->
+      <Tabbar></Tabbar>
+    </div>
     <!-- 内容展示区域 -->
     <div class="layout_main">
       <Main></Main>
@@ -23,16 +30,23 @@
 </template>
 
 <script setup lang="ts">
+//获取路由对象
+import { useRoute } from 'vue-router'
 //引入左侧菜单logo组件
 import Logo from './logo/index.vue'
 //引入左侧菜单组件
 import Menu from './menu/index.vue'
-//右侧内容展示区域
+//引入右侧内容展示区域
 import Main from './main/index.vue'
+//引入顶部tabbar组件
+import Tabbar from './tabbar/index.vue'
 
 //获取菜单相关的小仓库
 import useUserStore from '@/store/modules/user'
 let useStore = useUserStore()
+
+//获取路由对象
+let $route = useRoute()
 </script>
 
 <style lang="scss" scoped>
@@ -40,13 +54,13 @@ let useStore = useUserStore()
   width: 100%;
   height: 100vh;
   .layout_slider {
+    color: white;
     width: $base-menu-width;
     height: 100vh;
     background: $base-menu-background;
     .scrollbar {
       width: 100%;
       height: calc(100vh - $base-menu-logo-height);
-      color: white;
       .el-menu {
         border-right: none;
       }
@@ -56,7 +70,6 @@ let useStore = useUserStore()
     position: fixed;
     width: calc(100% - $base-menu-width);
     height: $base-tabbar-height;
-    background: cyan;
     top: 0;
     left: $base-menu-width;
   }
