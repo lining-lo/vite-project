@@ -1,5 +1,10 @@
 <template>
-  <el-button size="small" icon="Refresh" circle></el-button>
+  <el-button
+    size="small"
+    icon="Refresh"
+    circle
+    @click="updateRefresh"
+  ></el-button>
   <el-button size="small" icon="FullScreen" circle></el-button>
   <el-button size="small" icon="Setting" circle></el-button>
   <img
@@ -21,5 +26,13 @@
     </template>
   </el-dropdown>
 </template>
-<script setup lang="ts" name="Setting"></script>
+<script setup lang="ts" name="Setting">
+//获取骨架的小仓库
+import useLayOutSettingStore from '@/store/modules/setting'
+let layoutSettingStore = useLayOutSettingStore()
+//刷新按钮点击回调
+const updateRefresh = () => {
+  layoutSettingStore.refresh = !layoutSettingStore.refresh
+}
+</script>
 <style lang="scss" scoped></style>
