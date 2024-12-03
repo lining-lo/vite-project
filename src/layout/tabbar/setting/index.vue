@@ -5,7 +5,12 @@
     circle
     @click="updateRefresh"
   ></el-button>
-  <el-button size="small" icon="FullScreen" circle></el-button>
+  <el-button
+    size="small"
+    icon="FullScreen"
+    circle
+    @click="fullScreen"
+  ></el-button>
   <el-button size="small" icon="Setting" circle></el-button>
   <img
     src="../../../../public/logo.png"
@@ -33,6 +38,19 @@ let layoutSettingStore = useLayOutSettingStore()
 //刷新按钮点击回调
 const updateRefresh = () => {
   layoutSettingStore.refresh = !layoutSettingStore.refresh
+}
+//全屏按钮点击回调
+const fullScreen = () => {
+  //DOM对象的一个属性：可以判断当前是不是全屏模式[全屏：true,不是全屏：null]
+  let full = document.fullscreenElement
+  //切换为全屏模式
+  if (!full) {
+    //文档根节点的方法requestFullscreen,实现全屏模式
+    document.documentElement.requestFullscreen()
+  } else {
+    //变为不是全屏模式->退出全屏模式
+    document.exitFullscreen()
+  }
 }
 </script>
 <style lang="scss" scoped></style>
