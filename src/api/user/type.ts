@@ -22,13 +22,16 @@ export interface loginResponseData {
   data: dataType
 }
 
+interface checkUserType {
+  routes: string[]
+  buttons: string[]
+  roles: string[]
+  username: string
+  avatar: string
+}
 //定义获取用户信息返回数据类型
 export interface userInfoReponseData extends ResponseData {
   data: {
-    routes: string[]
-    buttons: string[]
-    roles: string[]
-    name: string
-    avatar: string
+    checkUser: checkUserType
   }
 }
