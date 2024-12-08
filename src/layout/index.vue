@@ -101,9 +101,9 @@ let $route = useRoute()
     position: absolute;
     width: calc(100% - $base-menu-width);
     height: calc(100vh - $base-tabbar-height);
-    background-color: yellowgreen;
     left: $base-menu-width;
     top: $base-tabbar-height;
+    background-color: white;
     padding: 20px;
     overflow: auto;
     transition: all 0.3s;
