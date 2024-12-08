@@ -44,9 +44,13 @@ const useUserStore = defineStore('User', {
     async userInfo() {
       //获取用户信息进行存储
       const result = await reqUserInfo()
+      //如果获取用户信息成功，存储一下用户信息
       if (result.code == 200) {
         this.username = result.data.checkUser.username
         this.avatar = result.data.checkUser.avatar
+        return 'ok'
+      } else {
+        return Promise.reject('获取用户信息失败')
       }
     },
     //退出登录的方法
