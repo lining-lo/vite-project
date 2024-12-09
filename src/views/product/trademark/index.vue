@@ -42,12 +42,15 @@
       ---layout：分页器6个子组件布局的调整 "->"把后面的子组件顶到右侧
      -->
     <el-pagination
+      @current-change="getHasTrademark"
+      @size-change="sizeChange"
       v-model:current-page="pageNo"
       v-model:page-size="limit"
       :page-sizes="[3, 5, 7, 9]"
       :background="true"
       layout=" prev, pager, next, jumper,->,total, sizes,"
       :total="total"
+      :pager-count="9"
     />
   </el-card>
 </template>
@@ -81,6 +84,12 @@ const getHasTrademark = async (pager = 1) => {
     total.value = result.data.total
     trademarkArr.value = result.data.records
   }
+}
+//当下拉菜单发生变化的时候触发方法
+//这个自定义事件，分页器组件会将下拉菜单选中的数据返回
+const sizeChange = () => {
+  //当前每一页的数据量发生变化的时候，当前页面归1
+  getHasTrademark()
 }
 //组件挂载完毕钩子---发一次请求,获取第一页、一页三个已有品牌数据
 onMounted(() => {
