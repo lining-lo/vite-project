@@ -28,12 +28,12 @@
         </template>
       </el-table-column>
       <el-table-column label="品牌操作">
-        <template #="{}">
+        <template #="{ row }">
           <el-button
             type="primary"
             size="small"
             icon="Edit"
-            @click="updateTrademark"
+            @click="updateTrademark(row)"
           ></el-button>
           <el-button type="danger" size="small" icon="Delete"></el-button>
         </template>
@@ -61,7 +61,10 @@
     />
   </el-card>
   <!-- 对话框组件：在添加品牌与修改已有品牌的业务时使用该结构 -->
-  <el-dialog v-model="dialogFormVisible" title="添加品牌">
+  <el-dialog
+    v-model="dialogFormVisible"
+    :title="trademarkParams.id ? '修改品牌' : '添加品牌'"
+  >
     <el-form style="width: 80%">
       <el-form-item label="品牌名称" label-width="80px">
         <el-input
@@ -78,6 +81,7 @@
           :before-upload="beforeAvatarUpload"
         >
           <img
+            style="width: 500px; height: 300px"
             v-if="trademarkParams.logoUrl"
             :src="trademarkParams.logoUrl"
             class="avatar"
@@ -153,13 +157,16 @@ const addTrademark = () => {
   //对话框显示
   dialogFormVisible.value = true
   //清空收集数据
+  trademarkParams.id = 0
   trademarkParams.tmName = ''
   trademarkParams.logoUrl = ''
 }
 //修改已有品牌按钮的回调
-const updateTrademark = () => {
+//row:当前已有的品牌
+const updateTrademark = (row: TradeMark) => {
   //对话框显示
   dialogFormVisible.value = true
+  Object.assign(trademarkParams, row)
 }
 //对话框底部取消按钮
 const cancel = () => {
@@ -176,15 +183,15 @@ const confirm = async () => {
     //弹出提示信息
     ElMessage({
       type: 'success',
-      message: '添加品牌成功',
+      message: trademarkParams.id ? '修改品牌成功' : '添加品牌成功',
     })
     //再次发请求获取已有全部的品牌数据
-    getHasTrademark()
+    getHasTrademark(trademarkParams.id ? pageNo.value : 1)
   } else {
     //添加品牌失败
     ElMessage({
       type: 'error',
-      message: '添加品牌失败',
+      message: trademarkParams.id ? '修改品牌失败' : '添加品牌失败',
     })
     //关闭对话框
     dialogFormVisible.value = false
