@@ -31,7 +31,7 @@ export interface Attr {
   id?: number
   attrName: string
   categoryId: number | string
-  categoryLevel: number
+  categoryLevel: number | string
   attrValueList: AttrValueList
 }
 //存储每一个属性对象的数组ts类型
