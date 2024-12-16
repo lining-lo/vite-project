@@ -25,16 +25,22 @@
     </el-form-item>
     <el-form-item label="SPU图片">
       <el-upload
-        v-model:file-list="fileList"
-        action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+        v-model:file-list="imgList"
+        action="/api/admin/product/fileUpload"
         list-type="picture-card"
         :on-preview="handlePictureCardPreview"
         :on-remove="handleRemove"
+        :before-upload="handlerUpload"
       >
         <el-icon><Plus /></el-icon>
       </el-upload>
       <el-dialog v-model="dialogVisible">
-        <img w-full :src="dialogImageUrl" alt="Preview Image" />
+        <img
+          w-full
+          :src="dialogImageUrl"
+          alt="Preview Image"
+          style="width: 100%; height: 100%"
+        />
       </el-dialog>
     </el-form-item>
     <el-form-item label="SPU销售属性" size="normal">
@@ -78,6 +84,7 @@
   </el-form>
 </template>
 <script setup lang="ts">
+import ElMessage from 'element-plus'
 import type {
   SpuData,
   HasSaleAttr,
@@ -116,6 +123,10 @@ let SpuParams = ref<SpuData>({
   spuImageList: [],
   spuSaleAttrList: [],
 })
+//控制对话框的显示与隐藏
+let dialogVisible = ref<boolean>(false)
+//存储预览图片地址
+let dialogImageUrl = ref<string>('')
 
 //点击取消按钮：通知父组件切换场景为1，展示已有的SPU数据
 const cancel = () => {
@@ -137,11 +148,46 @@ const initHasSpuData = async (spu: SpuData) => {
   //存储全部品牌的数据
   allTradeMark.value = result.data
   //SPU对应商品图片
-  imgList.value = result1.data
+  imgList.value = result1.data.map((item) => {
+    return {
+      name: item.imgName,
+      url: item.imgUrl,
+    }
+  })
   //存储已有的SPU的销售属性
   saleAttr.value = result2.data
   //存储全部的销售属性
   allSaleAttr.value = result3.data
+}
+//照片墙点击预览按钮的时候触发的钩子
+const handlePictureCardPreview = (file: any) => {
+  dialogImageUrl.value = file.url
+  //对话框弹出来
+  dialogVisible.value = true
+}
+//照片钱上传成功之前的钩子约束文件的大小与类型
+const handlerUpload = (file: any) => {
+  if (
+    file.type == 'image/png' ||
+    file.type == 'image/jpeg' ||
+    file.type == 'image/gif'
+  ) {
+    if (file.size / 1024 / 1024 < 3) {
+      return true
+    } else {
+      ElMessage({
+        type: 'error',
+        message: '上传文件务必小于3M',
+      })
+      return false
+    }
+  } else {
+    ElMessage({
+      type: 'error',
+      message: '上传文件务必PNG|JPG|GIF',
+    })
+    return false
+  }
 }
 //对外暴露
 defineExpose({ initHasSpuData })
