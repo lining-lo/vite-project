@@ -5,16 +5,52 @@
     <el-card style="margin: 10px 0px">
       <el-button type="primary" size="default" icon="Plus">添加SPU</el-button>
       <!-- 表格 -->
-      <el-table style="margin: 10px 0px" border>
+      <el-table border style="margin: 10px 10px" :data="records">
         <el-table-column
           label="序号"
           type="index"
           align="center"
           width="80px"
         ></el-table-column>
-        <el-table-column label="SPU名称"></el-table-column>
-        <el-table-column label="SPU描述"></el-table-column>
-        <el-table-column label="SPU操作"></el-table-column>
+        <el-table-column label="SPU名称" prop="spuName"></el-table-column>
+        <el-table-column
+          label="SPU描述"
+          prop="description"
+          show-overflow-tooltip
+        ></el-table-column>
+        <el-table-column label="SPU操作">
+          <!-- row:即为已有的SPU对象 -->
+          <template #="{ row, $index }">
+            <el-button
+              type="primary"
+              size="small"
+              icon="Plus"
+              title="添加SKU"
+            ></el-button>
+            <el-button
+              type="primary"
+              size="small"
+              icon="Edit"
+              title="修改SPU"
+            ></el-button>
+            <el-button
+              type="primary"
+              size="small"
+              icon="View"
+              title="查看SKU列表"
+            ></el-button>
+            <el-popconfirm :title="`你确定删除${row.spuName}?`" width="200px">
+              <template #reference>
+                <el-button
+                  type="primary"
+                  size="small"
+                  icon="Delete"
+                  title="删除SPU"
+                ></el-button>
+              </template>
+            </el-popconfirm>
+          </template>
+        </el-table-column>
       </el-table>
       <!-- 分页器 -->
       <el-pagination
