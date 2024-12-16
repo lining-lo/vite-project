@@ -42,7 +42,7 @@
                 size="small"
                 icon="Edit"
                 title="修改SPU"
-                @click="updateSpu"
+                @click="updateSpu(row)"
               ></el-button>
               <el-button
                 type="primary"
@@ -76,7 +76,11 @@
         />
       </div>
       <!-- 添加SPU|修改SPU子组件 -->
-      <SpuForm v-show="scene == 1" @changeScene="changeScene"></SpuForm>
+      <SpuForm
+        v-show="scene == 1"
+        ref="spu"
+        @changeScene="changeScene"
+      ></SpuForm>
       <!-- 添加SKU子组件 -->
       <SkuForm v-show="scene == 2"></SkuForm>
     </el-card>
@@ -84,7 +88,11 @@
 </template>
 
 <script setup lang="ts">
-import type { HasSpuResponseData, Records } from '@/api/product/spu/type'
+import type {
+  HasSpuResponseData,
+  Records,
+  SpuData,
+} from '@/api/product/spu/type'
 import SpuForm from './spuForm.vue'
 import SkuForm from './skuForm.vue'
 import { ref, watch } from 'vue'
@@ -95,12 +103,15 @@ let categoryStore = useCategoryStore()
 //存储已有的SPU数据
 let records = ref<Records>([])
 let total = ref<number>(0)
+//获取子组件实例SpuForm
+let spu = ref<any>()
 //场景数据
 let scene = ref<number>(0) //0:显示已有SPU 1:添加或者修改已有SPU 2:添加SKU的结构
 //分页器默认页码
 let pageNo = ref<number>(1)
 //每一页展示几条数据
 let pageSize = ref<number>(3)
+
 //监听三级分类ID变化
 watch(
   () => categoryStore.c3Id,
@@ -136,9 +147,11 @@ const addSpu = () => {
   scene.value = 1
 }
 //修改已有的SPU的按钮的回调
-const updateSpu = () => {
+const updateSpu = (row: SpuData) => {
   //切换为场景1:添加与修改已有SPU结构->SpuForm
   scene.value = 1
+  //调用子组件实例方法获取完整已有的SPU的数据
+  spu.value.initHasSpuData(row)
 }
 //子组件SpuForm绑定自定义事件：目前是让子组件通知父组件切换场景为0
 const changeScene = (num: number) => {
