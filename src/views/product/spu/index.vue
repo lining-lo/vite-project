@@ -35,6 +35,7 @@
                 type="primary"
                 size="small"
                 icon="Plus"
+                @click="addSpu"
                 title="添加SKU"
               ></el-button>
               <el-button
@@ -145,6 +146,8 @@ const changeSize = () => {
 const addSpu = () => {
   //切换为场景1:添加与修改已有SPU结构->SpuForm
   scene.value = 1
+  //点击添加SPU按钮,调用子组件的方法初始化数据
+  spu.value.initAddSpu(categoryStore.c3Id)
 }
 //修改已有的SPU的按钮的回调
 const updateSpu = (row: SpuData) => {
@@ -153,11 +156,17 @@ const updateSpu = (row: SpuData) => {
   //调用子组件实例方法获取完整已有的SPU的数据
   spu.value.initHasSpuData(row)
 }
-//子组件SpuForm绑定自定义事件：目前是让子组件通知父组件切换场景为0
-const changeScene = (num: number) => {
-  //子组件SpuForm点击取消变为场景0：展示已有的SPU
-  scene.value = num
-  getHasSpu()
+//子组件SpuForm绑定自定义事件:目前是让子组件通知父组件切换场景为0
+const changeScene = (obj: any) => {
+  //子组件Spuform点击取消变为场景0:展示已有的SPU
+  scene.value = obj.flag
+  if (obj.params == 'update') {
+    //更新留在当前页
+    getHasSpu(pageNo.value)
+  } else {
+    //添加留在第一页
+    getHasSpu()
+  }
 }
 </script>
 <style lang="scss" scoped></style>
