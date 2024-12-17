@@ -61,10 +61,11 @@ export interface SaleAttrValue {
   id?: number
   createTime?: null
   updateTime?: null
-  spuId: number
-  baseSaleAttrId: number
+  spuId?: number
+  baseSaleAttrId: number | string
   saleAttrName?: string
   isChecked?: null
+  saleAttrValueName?: string
 }
 //存储已有的销售属性值数组类型
 export type SpuSaleAttrValueList = SaleAttrValue[]
@@ -78,6 +79,8 @@ export interface SaleAttr {
   baseSaleAttrId: number | string
   saleAttrName: string
   spuSaleAttrValueList: SpuSaleAttrValueList
+  flag?: boolean
+  saleAttrValue?: string
 }
 //SPU已有的销售属性接口返回数据ts类型
 export interface SaleAttrResponseData extends ResponseData {
