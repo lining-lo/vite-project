@@ -35,7 +35,7 @@
                 type="primary"
                 size="small"
                 icon="Plus"
-                @click="addSku"
+                @click="addSku(row)"
                 title="添加SKU"
               ></el-button>
               <el-button
@@ -83,7 +83,11 @@
         @changeScene="changeScene"
       ></SpuForm>
       <!-- 添加SKU子组件 -->
-      <SkuForm v-show="scene == 2" @changeScene="changeScene"></SkuForm>
+      <SkuForm
+        v-show="scene == 2"
+        ref="sku"
+        @changeScene="changeScene"
+      ></SkuForm>
     </el-card>
   </div>
 </template>
@@ -106,6 +110,8 @@ let records = ref<Records>([])
 let total = ref<number>(0)
 //获取子组件实例SpuForm
 let spu = ref<any>()
+//获取子组件实例SkuForm
+let sku = ref<any>()
 //场景数据
 let scene = ref<number>(0) //0:显示已有SPU 1:添加或者修改已有SPU 2:添加SKU的结构
 //分页器默认页码
@@ -169,9 +175,10 @@ const changeScene = (obj: any) => {
   }
 }
 //添加SKU按钮的回调
-const addSku = () => {
+const addSku = (row: SpuData) => {
   //点击添加SKU按钮切换为场景2
   scene.value = 2
+  sku.value.initSkuData(categoryStore.c1Id, categoryStore.c2Id, row)
 }
 </script>
 <style lang="scss" scoped></style>
